@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speedrush Dofus — Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0b07;
+    --bg2: #161009;
+    --bg3: #1d1710;
+    --card: #1a1208;
+    --border: #3a2a14;
+    --border2: #5a3e1c;
+    --gold: #c9933a;
+    --gold2: #e8b96a;
+    --gold3: #f5d9a0;
+    --amber: #d4780a;
+    --text: #e8d8bc;
+    --muted: #8a7660;
+    --accent: #b84a1a;
+    --green: #5a9e4a;
+    --green2: #7acc5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(180,80,20,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(90,60,10,0.12) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; position: relative; z-index: 1; }
+
+  /* Header */
+  .hero {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--gold2);
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-sub {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  /* Paw decoration */
+  .paw { font-size: 1.2em; margin: 0 0.3em; opacity: 0.7; }
+
+  /* Progress global */
+  .global-progress {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .progress-label { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--bg3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber), var(--gold2));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-pct {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--gold2);
+    min-width: 3rem;
+    text-align: right;
+  }
+
+  /* Nav */
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .toc-title {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .toc ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+
+  .toc a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--gold3); }
+
+  /* Phase sections */
+  .phase {
+    margin-bottom: 3rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-range {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gold2);
+  }
+
+  .phase-sep { color: var(--border2); font-size: 1.2rem; }
+
+  .phase-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .phase-check-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Stuff cards */
+  .stuff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .stuff-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .stuff-card:hover { border-color: var(--border2); }
+
+  .stuff-card.checked {
+    border-color: var(--green);
+    background: rgba(90, 158, 74, 0.07);
+  }
+
+  .stuff-card.checked .stuff-name { color: var(--green2); }
+
+  .checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border2);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .stuff-card.checked .checkbox {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .stuff-card.checked .checkbox::after {
+    content: '';
+    width: 4px;
+    height: 7px;
+    border: 1.5px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(40deg) translateY(-1px);
+    display: block;
+  }
+
+  .stuff-info { flex: 1; }
+
+  .stuff-slot {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .stuff-name {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.3;
+    transition: color 0.2s;
+  }
+
+  .stuff-lvl {
+    font-size: 11px;
+    color: var(--amber);
+    margin-top: 2px;
+  }
+
+  /* Tips block */
+  .tip-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .tip-block strong { color: var(--gold); font-weight: 600; }
+
+  .tip-title {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.4rem;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    color: var(--border2);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .wrapper { padding: 0 1rem 4rem; }
+    .hero { padding: 2rem 0 2rem; }
+    .stuff-grid { grid-template-columns: 1fr 1fr; }
+    .global-progress { flex-wrap: wrap; gap: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header class="hero">
+    <p class="hero-eyebrow">Guide Speedrush</p>
+    <h1>La team des Couz</h1>
+    <p class="hero-sub">Par palier · 0 → 100</p>
+  </header>
+
+  <div class="global-progress">
+    <span class="progress-label">Progression</span>
+    <div class="progress-track"><div class="progress-fill" id="global-fill"></div></div>
+    <span class="progress-pct" id="global-pct">0 %</span>
+  </div>
+
+  <nav class="toc">
+    <p class="toc-title">Sommaire</p>
+    <ul>
+      <li><a href="#p0">Niv. 0 → 20</a></li>
+      <li><a href="#p20">Niv. 20 → 40</a></li>
+      <li><a href="#p40">Niv. 40 → 60</a></li>
+      <li><a href="#p60">Niv. 60 → 80</a></li>
+      <li><a href="#p80">Niv. 80 → 100</a></li>
+    </ul>
+  </nav>
+
+  <!-- 0 -> 20 -->
+  <section class="phase" id="p0">
+    <div class="phase-header">
+      <span class="phase-range">0 → 20</span>
+      <span class="phase-sep">·</span>
+      <span class="phase-title">Premiers pas</span>
+      <span class="phase-check-count" id="count-0"></span>
+    </div>
+
+    <div class="tip-block">
+      <p class="tip-title">Conseil</p>
+      Ouginak Eau avec un stuff boune et pour le familier 2 choix, Kanigloups (Eau) ou Chienchien (Sagesse)
+    </div>
+
+    <div class="stuff-grid" data-phase="0">
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Chapeau</div><div class="stuff-name">Le Floude</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Le Plussain</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Petit Anneau du Chanceux</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Ceinture</div><div class="stuff-name">La Spamette</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Amulette</div><div class="stuff-name">Le S'Mesme</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Cape</div><div class="stuff-name">La Cape S'loque</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bottes</div><div class="stuff-name">Les Incrustes</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bouclier</div><div class="stuff-name">La Halte Efkat</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Arme</div><div class="stuff-name">Bounihimée</div><div class="stuff-lvl">Niv. 1</div></div></div>
+    </div>
+    <div class="stuff-grid" data-phase="0">
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Chapeau</div><div class="stuff-name">Le Floude</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Le Plussain</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Petit Anneau du Chanceux</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Ceinture</div><div class="stuff-name">La Spamette</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Amulette</div><div class="stuff-name">Le S'Mesme</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Cape</div><div class="stuff-name">La Cape S'loque</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bottes</div><div class="stuff-name">Les Incrustes</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bouclier</div><div class="stuff-name">La Halte Efkat</div><div class="stuff-lvl">Niv. 1</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Arme</div><div class="stuff-name">Bounihimée</div><div class="stuff-lvl">Niv. 1</div></div></div>
+    </div>
+  </section>
+
+  <div class="divider">**</div>
+
+  <!-- 20 -> 40 -->
+  <section class="phase" id="p20">
+    <div class="phase-header">
+      <span class="phase-range">20 → 40</span>
+      <span class="phase-sep">·</span>
+      <span class="phase-title">Consolidation</span>
+      <span class="phase-check-count" id="count-20"></span>
+    </div>
+
+    <div class="tip-block">
+      <p class="tip-title">Conseil</p>
+      Farm les <strong>Bouftous et Piranhas</strong> pour du drop rapide. Le set Royal Bouftou est excellent pour ce palier si tu peux le looter ou l'acheter pour pas cher à l'HDV.
+    </div>
+
+    <div class="stuff-grid" data-phase="20">
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Chapeau</div><div class="stuff-name">Chapeau Royal Bouftou</div><div class="stuff-lvl">Niv. 23</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Cape</div><div class="stuff-name">Cape Royale Bouftou</div><div class="stuff-lvl">Niv. 23</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bottes</div><div class="stuff-name">Bottes Royales Bouftou</div><div class="stuff-lvl">Niv. 23</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Ceinture</div><div class="stuff-name">Ceinture Royale Bouftou</div><div class="stuff-lvl">Niv. 23</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Amulette</div><div class="stuff-name">Amulette des Bandits</div><div class="stuff-lvl">Niv. 30</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Arme</div><div class="stuff-name">Griffe de Canidé</div><div class="stuff-lvl">Niv. 25</div></div></div>
+    </div>
+  </section>
+
+  <div class="divider">**</div>
+
+  <!-- 40 -> 60 -->
+  <!-- <section class="phase" id="p40">
+    <div class="phase-header">
+      <span class="phase-range">40 → 60</span>
+      <span class="phase-sep">·</span>
+      <span class="phase-title">Montée en puissance</span>
+      <span class="phase-check-count" id="count-40"></span>
+    </div>
+
+    <div class="tip-block">
+      <p class="tip-title">Conseil</p>
+      Objectif : <strong>set Fantôme</strong> ou équivalent Niv. 45–55. Zone recommandée : Forêt des Abraknydes. L'Ouginak commence à bien fonctionner avec de la vitalité et de la force.
+    </div>
+
+    <div class="stuff-grid" data-phase="40">
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Chapeau</div><div class="stuff-name">Chapeau du Brigand</div><div class="stuff-lvl">Niv. 46</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Cape</div><div class="stuff-name">Cape du Brigand</div><div class="stuff-lvl">Niv. 46</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Ceinture</div><div class="stuff-name">Ceinture des Korriands</div><div class="stuff-lvl">Niv. 50</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Amulette</div><div class="stuff-name">Amulette des Cawotts</div><div class="stuff-lvl">Niv. 48</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Anneau du Chevalier</div><div class="stuff-lvl">Niv. 50</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bottes</div><div class="stuff-name">Bottes de Combat</div><div class="stuff-lvl">Niv. 51</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Arme</div><div class="stuff-name">Épée de Koutoulou</div><div class="stuff-lvl">Niv. 55</div></div></div>
+    </div>
+  </section> -->
+
+  <div class="divider">**</div>
+
+  <!-- 60 -> 80 -->
+  <!-- <section class="phase" id="p60">
+    <div class="phase-header">
+      <span class="phase-range">60 → 80</span>
+      <span class="phase-sep">·</span>
+      <span class="phase-title">Transition critique</span>
+      <span class="phase-check-count" id="count-60"></span>
+    </div>
+
+    <div class="tip-block">
+      <p class="tip-title">Conseil</p>
+      Le <strong>set Ancestral</strong> (Niv. 60–70) est un très bon investissement. Pense à orienter tes caractéristiques vers Force + Chance pour maximiser les dégâts de l'Ouginak. Donjons : Donjon des Bandits.
+    </div>
+
+    <div class="stuff-grid" data-phase="60">
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Chapeau</div><div class="stuff-name">Chapeau Ancestral</div><div class="stuff-lvl">Niv. 60</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Cape</div><div class="stuff-name">Cape Ancestrale</div><div class="stuff-lvl">Niv. 60</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Ceinture</div><div class="stuff-name">Ceinture Ancestrale</div><div class="stuff-lvl">Niv. 60</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bottes</div><div class="stuff-name">Bottes Ancestrales</div><div class="stuff-lvl">Niv. 60</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Amulette</div><div class="stuff-name">Amulette de Brakmar</div><div class="stuff-lvl">Niv. 70</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Anneau de Brakmar</div><div class="stuff-lvl">Niv. 70</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Arme</div><div class="stuff-name">Griffe des Profondeurs</div><div class="stuff-lvl">Niv. 65</div></div></div>
+    </div>
+  </section> -->
+
+  <div class="divider">**</div>
+
+  <!-- 80 -> 100 -->
+  <!-- <section class="phase" id="p80">
+    <div class="phase-header">
+      <span class="phase-range">80 → 100</span>
+      <span class="phase-sep">·</span>
+      <span class="phase-title">Endgame</span>
+      <span class="phase-check-count" id="count-80"></span>
+    </div>
+
+    <div class="tip-block">
+      <p class="tip-title">Conseil</p>
+      Objectif final : <strong>set Turquoise ou Abyssal</strong>. Zone : Frigost est ouverte et rentable. L'Ouginak avec du stuff Niv. 100 devient un monstre en PvM. Pense au <strong>Dofus Turquoise</strong> si tu as le temps.
+    </div>
+
+    <div class="stuff-grid" data-phase="80">
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Chapeau</div><div class="stuff-name">Chapeau du Wa Wabbit</div><div class="stuff-lvl">Niv. 89</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Cape</div><div class="stuff-name">Cape du Wa Wabbit</div><div class="stuff-lvl">Niv. 89</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Ceinture</div><div class="stuff-name">Ceinture Turquoise</div><div class="stuff-lvl">Niv. 95</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Bottes</div><div class="stuff-name">Bottes Turquoise</div><div class="stuff-lvl">Niv. 95</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Amulette</div><div class="stuff-name">Amulette du Bouftou Royal</div><div class="stuff-lvl">Niv. 86</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Anneau</div><div class="stuff-name">Anneau Turquoise</div><div class="stuff-lvl">Niv. 95</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Plastron</div><div class="stuff-name">Plastron Turquoise</div><div class="stuff-lvl">Niv. 95</div></div></div>
+      <div class="stuff-card" onclick="toggle(this)"><div class="checkbox"></div><div class="stuff-info"><div class="stuff-slot">Arme</div><div class="stuff-name">Kraken Klaque</div><div class="stuff-lvl">Niv. 96</div></div></div>
+    </div>
+  </section> -->
+
+</div>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('checked');
+    updateAll();
+  }
+
+  function updatePhase(phaseId) {
+    const grid = document.querySelector(`[data-phase="${phaseId}"]`);
+    if (!grid) return { done: 0, total: 0 };
+    const cards = grid.querySelectorAll('.stuff-card');
+    const done = grid.querySelectorAll('.stuff-card.checked').length;
+    const countEl = document.getElementById(`count-${phaseId}`);
+    if (countEl) countEl.textContent = `${done} / ${cards.length}`;
+    return { done, total: cards.length };
+  }
+
+  function updateAll() {
+    const phases = ['0', '20', '40', '60', '80'];
+    let totalDone = 0, totalAll = 0;
+    phases.forEach(p => {
+      const { done, total } = updatePhase(p);
+      totalDone += done;
+      totalAll += total;
+    });
+    const pct = totalAll > 0 ? Math.round((totalDone / totalAll) * 100) : 0;
+    document.getElementById('global-fill').style.width = pct + '%';
+    document.getElementById('global-pct').textContent = pct + ' %';
+  }
+
+  updateAll();
+</script>
+</body>
+</html>
